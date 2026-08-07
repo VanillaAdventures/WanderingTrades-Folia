@@ -41,7 +41,7 @@ public final class TraderSpawnListener implements Listener {
         }
 
         // Delay by 1 tick so entity is in world
-        this.plugin.getServer().getScheduler().runTask(this.plugin, () -> {
+        this.plugin.getFoliaLib().getScheduler().runNextTick(task -> {
             if (trader.isValid()) {
                 this.notifyPlayers(trader);
             }

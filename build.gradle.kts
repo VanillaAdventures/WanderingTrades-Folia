@@ -55,6 +55,10 @@ repositories {
     maven("https://jitpack.io") {
         content { includeGroup("com.github.MilkBowl") }
     }
+    maven {
+        name = "tcoded-releases"
+        url = uri("https://repo.tcoded.com/releases")
+    }
 }
 
 dependencies {
@@ -87,6 +91,8 @@ dependencies {
     compileOnly(libs.worldguard.core) { isTransitive = false }
     compileOnly(libs.worldedit.bukkit) { isTransitive = false }
     compileOnly(libs.worldedit.core) { isTransitive = false }
+
+    implementation("com.tcoded:FoliaLib:0.5.1")
 }
 
 indra {
@@ -100,6 +106,7 @@ paperPluginYaml {
     apiVersion = "1.21.4"
     website = "https://github.com/jpenilla/WanderingTrades"
     authors = listOf("jmp")
+    foliaSupported = true
 
     permissions {
         register("wanderingtrades.trader-spawn-notifications") {
@@ -172,7 +179,7 @@ tasks {
         ).forEach {
             relocate(it, "wanderingtrades.$it")
         }
-
+        relocate("com.tcoded.folialib", "xyz.jpenilla.wanderingtrades.lib.folialib")
         mergeServiceFiles()
         // Needed for mergeServiceFiles to work properly in Shadow 9+
         filesMatching("META-INF/services/**") {
