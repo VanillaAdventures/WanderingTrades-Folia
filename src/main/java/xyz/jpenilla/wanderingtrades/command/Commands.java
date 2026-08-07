@@ -13,7 +13,6 @@ import org.incendo.cloud.paper.PaperCommandManager;
 import org.incendo.cloud.paper.util.sender.PaperSimpleSenderMapper;
 import org.incendo.cloud.paper.util.sender.Source;
 import org.incendo.cloud.parser.flag.CommandFlag;
-import org.incendo.cloud.translations.LocaleExtractor;
 import org.jspecify.annotations.NullMarked;
 import xyz.jpenilla.wanderingtrades.WanderingTrades;
 import xyz.jpenilla.wanderingtrades.command.argument.TradeConfigParser;
@@ -23,11 +22,6 @@ import xyz.jpenilla.wanderingtrades.command.commands.HelpCommand;
 import xyz.jpenilla.wanderingtrades.command.commands.ReloadCommand;
 import xyz.jpenilla.wanderingtrades.command.commands.SummonCommands;
 import xyz.jpenilla.wanderingtrades.command.commands.TradeCommands;
-
-import static org.incendo.cloud.translations.TranslationBundle.core;
-import static org.incendo.cloud.translations.bukkit.BukkitTranslationBundle.bukkit;
-import static org.incendo.cloud.translations.minecraft.extras.AudienceLocaleExtractor.audienceLocaleExtractor;
-import static org.incendo.cloud.translations.minecraft.extras.MinecraftExtrasTranslationBundle.minecraftExtras;
 
 @NullMarked
 public final class Commands {
@@ -65,11 +59,10 @@ public final class Commands {
     }
 
     private void registerCaptions() {
-        final LocaleExtractor<Source> extractor = audienceLocaleExtractor(Source::source);
-        this.commandManager.captionRegistry()
-            .registerProvider(minecraftExtras(extractor))
-            .registerProvider(bukkit(extractor))
-            .registerProvider(core(extractor));
+        // BukkitCommandManager (via PaperCommandManager) automatically registers
+        // BukkitDefaultCaptionsProvider and StandardCaptionsProvider on initialization.
+        // cloud-translations was only needed for localized (non-English) caption translations,
+        // which is no longer available as a published artifact.
     }
 
     private void registerParsers() {

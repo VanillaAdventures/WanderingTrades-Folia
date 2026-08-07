@@ -74,9 +74,6 @@ dependencies {
     implementation(platform(libs.cloud.minecraft.bom))
     implementation(libs.cloud.paper)
     implementation(libs.cloud.minecraft.extras)
-    implementation(platform(libs.cloud.translations.bom))
-    implementation(libs.cloud.translations.bukkit)
-    implementation(libs.cloud.translations.minecraft.extras)
 
     implementation(libs.interfaces.paper)
 
